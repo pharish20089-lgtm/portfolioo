@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For You ❤️</title>
+
+<style>
+body {
+    margin: 0;
+    font-family: Arial;
+    background: linear-gradient(135deg, #ff4e50, #ff758c);
+    text-align: center;
+    color: white;
+    overflow: hidden;
+}
+
+.container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(0,0,0,0.3);
+    padding: 25px;
+    border-radius: 15px;
+}
+
+#text {
+    font-size: 20px;
+    min-height: 60px;
+}
+
+button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    border: none;
+    background: #ff2e63;
+    color: white;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+#photo {
+    width: 200px;
+    border-radius: 15px;
+    margin-top: 15px;
+    display: none;
+    opacity: 1;
+    transition: opacity 0.5s ease-in-out;
+}
+
+/* hearts */
+.heart {
+    position: absolute;
+    animation: float 6s linear infinite;
+}
+
+@keyframes float {
+    0% {transform: translateY(100vh);}
+    100% {transform: translateY(-10vh);}
+}
+</style>
+</head>
+
+<body>
+
+<audio id="music" loop>
+    <source src="music.mp3" type="audio/mpeg">
+</audio>
+
+<div class="container">
+    <div id="text">Click next ❤️</div>
+    <img id="photo" src="photo1.jpeg">
+    <br>
+    <button onclick="nextStep()">Next ❤️</button>
+</div>
+
+<script>
+let step = 0;
+let started = false;
+
+const messages = [
+    "April Fool Vasu 😜",
+    "I love you Vasu ❤️ Can I say something to you?",
+    "Sorry 😔 I just wanted to make you smile...",
+    "Please talk to me ❤️"
+];
+
+const photos = ["photo1.jpeg","photo2.jpeg","photo3.jpeg"];
+let i = 0;
+
+function nextStep(){
+
+    document.getElementById("music").play();
+
+    if(step < messages.length){
+        document.getElementById("text").innerText = messages[step];
+
+        if(step === 1){
+            let img = document.getElementById("photo");
+            img.style.display = "block";
+
+            if(!started){
+                started = true;
+
+                setInterval(() => {
+                    img.style.opacity = 0;
+
+                    setTimeout(() => {
+                        i = (i + 1) % photos.length;
+                        img.src = photos[i];
+                        img.style.opacity = 1;
+                    }, 500);
+
+                }, 2500);
+            }
+        }
+
+        step++;
+    }
+    else{
+        window.location.href = "https://wa.me/919500462440";
+    }
+}
+
+/* hearts */
+setInterval(() => {
+    let h = document.createElement("div");
+    h.className = "heart";
+    h.innerText = "❤️";
+    h.style.left = Math.random()*100 + "vw";
+    document.body.appendChild(h);
+
+    setTimeout(()=>h.remove(),6000);
+},300);
+</script>
+
+</body>
+</html>
